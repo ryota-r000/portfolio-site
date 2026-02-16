@@ -65,6 +65,32 @@ function Footer() {
   );
 }
 
+// Screenshot Placeholder Component
+function ScreenshotPlaceholder({ title, index }: { title: string; index: number }) {
+  const colors = [
+    "from-blue-100 to-blue-50",
+    "from-indigo-100 to-indigo-50",
+    "from-violet-100 to-violet-50",
+    "from-cyan-100 to-cyan-50",
+  ];
+  
+  const icons = ["📱", "📊", "⚙️", "🛒"];
+  
+  return (
+    <div className={`aspect-video bg-gradient-to-br ${colors[index]} flex flex-col items-center justify-center p-6 relative overflow-hidden`}>
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/40 rounded-full -mr-16 -mt-16"></div>
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/40 rounded-full -ml-12 -mb-12"></div>
+      
+      {/* Screenshot placeholder content */}
+      <div className="relative z-10 text-center">
+        <div className="text-6xl font-bold text-blue-900/20 mb-4">{icons[index]}</div>
+        <span className="text-blue-900/40 text-sm font-medium">{title}</span>
+      </div>
+    </div>
+  );
+}
+
 // Project Detail Page Component
 export default function ProjectDetail(props: any) {
   const projectId = props.params?.projectId || props.projectId;
@@ -102,26 +128,26 @@ export default function ProjectDetail(props: any) {
         {
           title: "ログイン画面",
           description:
-            "会員・従業員の役割に応じた認証画面。パスワードハッシュ化により、セキュアなログイン機能を実装。",
-          image: "Screenshot 1",
+            "会員・従業員の役割に応じた認証画面。パスワードハッシュ化により、セキュアなログイン機能を実装。ユーザーの入力値を厳密にバリデーションし、SQLインジェクションなどの脆弱性を防止。",
+          image: "ログイン画面",
         },
         {
           title: "商品一覧画面",
           description:
-            "家具商品の一覧表示。購入者向けの直感的なUI設計で、商品検索・フィルタリング機能を備える。",
-          image: "Screenshot 2",
+            "家具商品の一覧表示。購入者向けの直感的なUI設計で、商品検索・フィルタリング機能を備える。ページネーション機能により、大量の商品データを効率的に表示。",
+          image: "商品一覧",
         },
         {
           title: "管理画面",
           description:
-            "従業員向けの管理画面。商品管理・注文管理・ユーザー管理などの機能を集約。",
-          image: "Screenshot 3",
+            "従業員向けの管理画面。商品管理・注文管理・ユーザー管理などの機能を集約。セッション管理により、管理者のみがアクセス可能な設計を実装。",
+          image: "管理画面",
         },
         {
           title: "カート・決済画面",
           description:
-            "セッション管理に基づいたカート機能。ユーザーの購買フロー全体を設計。",
-          image: "Screenshot 4",
+            "セッション管理に基づいたカート機能。ユーザーの購買フロー全体を設計。商品の追加・削除・数量変更などの操作をシームレスに実行。",
+          image: "カート・決済",
         },
       ],
       techStack: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Git"],
@@ -270,17 +296,13 @@ export default function ProjectDetail(props: any) {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="bg-white rounded-lg overflow-hidden border border-border">
-                  <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                    <span className="text-muted-foreground text-sm">
-                      {screenshot.image}
-                    </span>
-                  </div>
+                <div className="bg-white rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow">
+                  <ScreenshotPlaceholder title={screenshot.image} index={index} />
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">
+                    <h3 className="text-xl font-semibold mb-3 text-foreground">
                       {screenshot.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed text-sm">
                       {screenshot.description}
                     </p>
                   </div>
