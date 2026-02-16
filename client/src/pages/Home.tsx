@@ -290,7 +290,7 @@ function WorksSection() {
       description:
         "家具メーカーの自社ECサイトを想定したWebショッピングシステム。チームリーダーとして進行管理・ルール整備を行い、認証・ログイン機能とセッション管理基盤を実装。",
       tags: ["Java", "Spring Boot", "MySQL", "Thymeleaf"],
-      image: "/images/projects/ken-top-loggedin.png",
+      image: "images/projects/ken-top-loggedin.png",
       link: "/project/ken-interior-shop",
     },
   ];
