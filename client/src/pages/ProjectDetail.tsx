@@ -1,7 +1,6 @@
-import { Mail, Github, Linkedin, ExternalLink, ArrowLeft } from "lucide-react";
+import { Github, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
 
 /**
  * Design Philosophy: Minimalism × Functional Beauty
@@ -18,6 +17,17 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6 },
+  },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
   },
 };
 
@@ -65,32 +75,6 @@ function Footer() {
   );
 }
 
-// Screenshot Placeholder Component
-function ScreenshotPlaceholder({ title, index }: { title: string; index: number }) {
-  const colors = [
-    "from-blue-100 to-blue-50",
-    "from-indigo-100 to-indigo-50",
-    "from-violet-100 to-violet-50",
-    "from-cyan-100 to-cyan-50",
-  ];
-  
-  const icons = ["📱", "📊", "⚙️", "🛒"];
-  
-  return (
-    <div className={`aspect-video bg-gradient-to-br ${colors[index]} flex flex-col items-center justify-center p-6 relative overflow-hidden`}>
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-white/40 rounded-full -mr-16 -mt-16"></div>
-      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/40 rounded-full -ml-12 -mb-12"></div>
-      
-      {/* Screenshot placeholder content */}
-      <div className="relative z-10 text-center">
-        <div className="text-6xl font-bold text-blue-900/20 mb-4">{icons[index]}</div>
-        <span className="text-blue-900/40 text-sm font-medium">{title}</span>
-      </div>
-    </div>
-  );
-}
-
 // Project Detail Page Component
 export default function ProjectDetail(props: any) {
   const projectId = props.params?.projectId || props.projectId;
@@ -101,53 +85,58 @@ export default function ProjectDetail(props: any) {
       description:
         "家具メーカーの自社ECサイトを想定したWebショッピングシステム（Spring Boot / Thymeleaf / MySQL）。",
       role: "チームリーダー（進行管理・ルール整備） / 担当：認証・ログイン機能／セッション管理基盤／フォームバリデーション",
-      github: "https://github.com",
-      sections: [
+      github: "https://github.com/ryota-r000/kenfurni",
+      details: [
         {
-          title: "プロジェクト目的",
+          title: "目的",
           content:
             "会員（購入者）と従業員（管理者）の機能分離を前提に、誤操作と不正アクセスを抑えた認証基盤を構築する。",
         },
         {
           title: "セキュリティ",
           content:
-            "パスワードはハッシュ化して保存（平文保持を回避）。セッション管理を共通化し、各画面から一貫した方法で認証状態を参照できる構成にした。",
+            "パスワードはハッシュ化して保存（平文保持を回避）。",
         },
         {
-          title: "設計判断",
+          title: "設計",
+          content:
+            "セッション管理を共通化し、各画面から一貫した方法で認証状態を参照できる構成にした。",
+        },
+        {
+          title: "判断",
           content:
             "チームの習熟度・学習コストを踏まえ、Spring Securityは使用せず自前実装（認証の内部構造を理解しながら実装）。",
         },
         {
-          title: "運用・チームマネジメント",
+          title: "運用",
           content:
             "Git運用ルール／コーディング規約を整備し、コンフリクトや差分事故を抑える開発環境を作った。",
         },
       ],
       screenshots: [
         {
-          title: "ログイン画面",
+          title: "① 未ログイン時：購入制御（権限分離）",
           description:
-            "会員・従業員の役割に応じた認証画面。パスワードハッシュ化により、セキュアなログイン機能を実装。ユーザーの入力値を厳密にバリデーションし、SQLインジェクションなどの脆弱性を防止。",
-          image: "ログイン画面",
+            "未ログイン状態では購入手続きに進めないよう制御し、意図しない操作や不正アクセスを防止。",
+          image: "/images/projects/ken-cart-guest.png",
         },
         {
-          title: "商品一覧画面",
+          title: "② ログイン後：セッション情報の表示",
           description:
-            "家具商品の一覧表示。購入者向けの直感的なUI設計で、商品検索・フィルタリング機能を備える。ページネーション機能により、大量の商品データを効率的に表示。",
-          image: "商品一覧",
+            "ログイン後はヘッダーにユーザー名・保有ポイントを表示。セッション管理により状態を一元化。",
+          image: "/images/projects/ken-top-loggedin.png",
         },
         {
-          title: "管理画面",
+          title: "③ ログイン後：ポイント適用・金額再計算",
           description:
-            "従業員向けの管理画面。商品管理・注文管理・ユーザー管理などの機能を集約。セッション管理により、管理者のみがアクセス可能な設計を実装。",
-          image: "管理画面",
+            "保有ポイントと使用ポイントを反映し、合計金額を再計算。入力バリデーションと整合性を意識。",
+          image: "/images/projects/ken-cart-loggedin.png",
         },
         {
-          title: "カート・決済画面",
+          title: "④ ログイン画面（入口）",
           description:
-            "セッション管理に基づいたカート機能。ユーザーの購買フロー全体を設計。商品の追加・削除・数量変更などの操作をシームレスに実行。",
-          image: "カート・決済",
+            "入力フォーム単位でバリデーションを実装。エラー時の案内や再入力のしやすさにも配慮。",
+          image: "/images/projects/ken-login.png",
         },
       ],
       techStack: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Git"],
@@ -194,8 +183,15 @@ export default function ProjectDetail(props: any) {
             <p className="text-2xl md:text-3xl text-primary font-semibold mb-6">
               {project.subtitle}
             </p>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
               {project.description}
+            </p>
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              <span className="font-semibold text-foreground">役割：</span>
+              {project.role.split(" / ")[0]}
+              <br />
+              <span className="font-semibold text-foreground">担当：</span>
+              {project.role.split(" / ")[1]}
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               {project.techStack.map((tech: string) => (
@@ -231,29 +227,31 @@ export default function ProjectDetail(props: any) {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-12">プロジェクト詳細</h2>
 
-          <div className="space-y-12">
-            {project.sections.map((section: any, index: number) => (
+          <motion.div
+            className="space-y-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {project.details.map((detail: any) => (
               <motion.div
-                key={section.title}
+                key={detail.title}
                 variants={itemVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
               >
-                <h3 className="text-2xl font-semibold mb-4 text-foreground">
-                  {section.title}
+                <h3 className="text-xl font-semibold mb-3 text-foreground">
+                  <span className="text-primary">■</span> {detail.title}
                 </h3>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  {section.content}
+                  {detail.content}
                 </p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
-      {/* Role & Responsibility Section */}
+      {/* Screenshots Section */}
       <motion.section
         className="py-20 md:py-32 px-4 md:px-8 bg-white"
         initial={{ opacity: 0 }}
@@ -261,55 +259,60 @@ export default function ProjectDetail(props: any) {
         transition={{ duration: 0.8 }}
         viewport={{ once: true, margin: "-100px" }}
       >
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12">役割と責務</h2>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            スクリーンショット
+          </h2>
+          <p className="text-muted-foreground mb-12 text-lg">
+            権限制御 → セッション → ロジック の順で掲載
+          </p>
+
           <motion.div
-            variants={itemVariants}
+            className="space-y-16"
+            variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-lg text-muted-foreground leading-relaxed"
           >
-            <p>{project.role}</p>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Screenshots Section */}
-      <motion.section
-        className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12">スクリーンショット</h2>
-
-          <div className="grid md:grid-cols-2 gap-12">
             {project.screenshots.map((screenshot: any, index: number) => (
               <motion.div
                 key={screenshot.title}
                 variants={itemVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                className="bg-secondary rounded-lg overflow-hidden border border-border"
               >
-                <div className="bg-white rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow">
-                  <ScreenshotPlaceholder title={screenshot.image} index={index} />
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-3 text-foreground">
+                <div className="grid md:grid-cols-2 gap-8 p-8">
+                  <div className="flex flex-col justify-center">
+                    <h3 className="text-2xl font-semibold mb-4 text-foreground">
                       {screenshot.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm">
+                    <p className="text-lg text-muted-foreground leading-relaxed">
                       {screenshot.description}
                     </p>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src={screenshot.image}
+                      alt={screenshot.title}
+                      className="w-full h-auto rounded-lg shadow-md border border-border object-cover"
+                    />
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
+
+          <motion.div
+            className="mt-16 p-6 bg-secondary rounded-lg border border-border"
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              <span className="font-semibold text-foreground">※ 補足：</span>
+              画像は <code className="bg-white px-2 py-1 rounded">img/</code> 配下に配置しています。可能ならログイン画面は「エラー表示（未入力・誤入力）」の状態のスクショも用意すると、より強く伝わります。
+            </p>
+          </motion.div>
         </div>
       </motion.section>
 
