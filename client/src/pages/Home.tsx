@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Mail, Github, Linkedin, ExternalLink, Code2, Palette, Zap } from "lucide-react";
+import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 /**
@@ -196,75 +196,7 @@ function AboutSection() {
   );
 }
 
-// Philosophy Section
-function PhilosophySection() {
-  return (
-    <motion.section
-      className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, margin: "-100px" }}
-    >
-      <div className="max-w-3xl mx-auto">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-12"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          Philosophy
-        </motion.h2>
 
-        <motion.div
-          className="space-y-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
-              <Code2 className="w-6 h-6 text-primary" />
-              技術力と美学の融合
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              エンジニアとしての論理性と、デザイナーとしての美的感覚を融合させることで、
-              単なる「動く」プロダクトではなく、「使いたくなる」プロダクトを作ります。
-              技術的な堅牢性とUIの優雅さは、決して相反するものではなく、
-              むしろ両者が調和したときに最高のユーザー体験が生まれます。
-            </p>
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
-              <Palette className="w-6 h-6 text-primary" />
-              ユーザー中心の設計思想
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              「なぜこの機能が必要なのか」「ユーザーはどのような課題を抱えているのか」を常に問い続けます。
-              単なる成果物の紹介ではなく、設計思想や改善プロセスを明確に伝えることで、
-              課題解決への姿勢とプロダクトへの想いを示します。
-            </p>
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
-              <Zap className="w-6 h-6 text-primary" />
-              継続的な学習と改善
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              UI/UX領域への強い関心を持ち、Figmaなどのデザインツールを学習中です。
-              フロントエンド技術の最新トレンドを追い、常に自分のスキルセットを拡張しています。
-              将来的には、フロントエンド/UI領域でのキャリア展開を目指しています。
-            </p>
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
 
 // Project Card Component
 function ProjectCard({
@@ -329,28 +261,12 @@ function ProjectCard({
 function WorksSection() {
   const projects = [
     {
-      title: "タスク管理アプリ",
+      title: "KEN Interior Shop",
       description:
-        "チーム内のタスク管理を効率化するWebアプリケーション。ドラッグ&ドロップで優先順位を変更でき、直感的な操作性を実現しました。",
-      tags: ["Java", "Spring Boot", "MySQL", "React", "UI/UX"],
+        "家具メーカーの自社ECサイトを想定したWebショッピングシステム。チームリーダーとして進行管理・ルール整備を行い、認証・ログイン機能とセッション管理基盤を実装。",
+      tags: ["Java", "Spring Boot", "MySQL", "Thymeleaf"],
       image: "Project 1",
-      link: "https://github.com",
-    },
-    {
-      title: "ポートフォリオサイト",
-      description:
-        "エンジニアとしての技術力とデザイン思考を伝えるポートフォリオサイト。ミニマリズムの設計思想を実装し、シンプルながら洗練された印象を表現。",
-      tags: ["React", "Tailwind CSS", "TypeScript", "デザイン"],
-      image: "Project 2",
-      link: "https://github.com",
-    },
-    {
-      title: "ロゴデザイン",
-      description:
-        "カフェブランド向けのロゴデザイン。爽やかさと親近感を表現するため、青色と手書き風フォントを採用。",
-      tags: ["Illustrator", "ブランディング", "デザイン"],
-      image: "Design 1",
-      link: "#",
+      link: "/project/ken-interior-shop",
     },
   ];
 
@@ -382,7 +298,14 @@ function WorksSection() {
           viewport={{ once: true }}
         >
           {projects.map((project, index) => (
-            <ProjectCard key={project.title} {...project} index={index} />
+            <div key={project.title}>
+              <a
+                href={project.link}
+                className="group block h-full"
+              >
+                <ProjectCard {...project} index={index} />
+              </a>
+            </div>
           ))}
         </motion.div>
       </div>
@@ -390,66 +313,7 @@ function WorksSection() {
   );
 }
 
-// Skills Section
-function SkillsSection() {
-  const skills = {
-    "Backend": ["Java", "Spring Boot", "MySQL", "REST API"],
-    "Frontend": ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"],
-    "Design": ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
-    "Tools": ["Git", "GitHub", "VS Code"],
-  };
 
-  return (
-    <motion.section
-      className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, margin: "-100px" }}
-    >
-      <div className="max-w-5xl mx-auto">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-12"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          Skills
-        </motion.h2>
-
-        <motion.div
-          className="grid md:grid-cols-2 gap-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {Object.entries(skills).map(([category, items], categoryIndex) => (
-            <motion.div
-              key={category}
-              variants={itemVariants}
-              transition={{ delay: categoryIndex * 0.1 }}
-            >
-              <h3 className="text-xl font-semibold mb-6">{category}</h3>
-              <div className="flex flex-wrap gap-3">
-                {items.map((skill) => (
-                  <motion.span
-                    key={skill}
-                    className="px-4 py-2 bg-white border border-border rounded-full text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors cursor-default"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
 
 // Contact Section
 function ContactSection() {
@@ -572,9 +436,7 @@ export default function Home() {
       <Navigation />
       <HeroSection />
       <AboutSection />
-      <PhilosophySection />
       <WorksSection />
-      <SkillsSection />
       <ContactSection />
       <Footer />
     </div>
