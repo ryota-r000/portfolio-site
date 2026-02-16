@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLocation } from "wouter";
 
 /**
  * Design Philosophy: Minimalism × Functional Beauty
@@ -214,6 +215,16 @@ function ProjectCard({
   link: string;
   index: number;
 }) {
+  const [, navigate] = useLocation();
+  const isExternalLink = link.startsWith("http://") || link.startsWith("https://");
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (!isExternalLink) {
+      e.preventDefault();
+      navigate(link);
+    }
+  };
+
   return (
     <motion.div
       className="group"
@@ -223,7 +234,13 @@ function ProjectCard({
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
     >
-      <a href={link} target="_blank" rel="noopener noreferrer" className="block">
+      <a
+        href={link}
+        onClick={handleClick}
+        target={isExternalLink ? "_blank" : undefined}
+        rel={isExternalLink ? "noopener noreferrer" : undefined}
+        className="block"
+      >
         <motion.div
           className="bg-secondary rounded-lg overflow-hidden mb-4 aspect-video"
           whileHover={{ scale: 1.02 }}
@@ -298,14 +315,7 @@ function WorksSection() {
           viewport={{ once: true }}
         >
           {projects.map((project, index) => (
-            <div key={project.title}>
-              <a
-                href={project.link}
-                className="group block h-full"
-              >
-                <ProjectCard {...project} index={index} />
-              </a>
-            </div>
+            <ProjectCard key={project.title} {...project} index={index} />
           ))}
         </motion.div>
       </div>
