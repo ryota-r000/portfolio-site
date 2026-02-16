@@ -26,15 +26,12 @@ function ensureLogDir() {
 
 function trimLogFile(logPath: string, maxSize: number) {
   try {
-    if (!fs.existsSync(logPath) || fs.statSync(logPath).size <= maxSize) {
-      return;
-    }
+    if (!fs.existsSync(logPath) || fs.statSync(logPath).size <= maxSize) return;
 
     const lines = fs.readFileSync(logPath, "utf-8").split("\n");
     const keptLines: string[] = [];
     let keptBytes = 0;
 
-    // Keep newest lines (from end) that fit within 60% of maxSize
     const targetSize = TRIM_TARGET_BYTES;
     for (let i = lines.length - 1; i >= 0; i--) {
       const lineBytes = Buffer.byteLength(`${lines[i]}\n`, "utf-8");
@@ -55,16 +52,12 @@ function writeToLogFile(source: LogSource, entries: unknown[]) {
   ensureLogDir();
   const logPath = path.join(LOG_DIR, `${source}.log`);
 
-  // Format entries with timestamps
   const lines = entries.map((entry) => {
     const ts = new Date().toISOString();
     return `[${ts}] ${JSON.stringify(entry)}`;
   });
 
-  // Append to log file
   fs.appendFileSync(logPath, `${lines.join("\n")}\n`, "utf-8");
-
-  // Trim if exceeds max size
   trimLogFile(logPath, MAX_LOG_SIZE_BYTES);
 }
 
@@ -74,20 +67,20 @@ function writeToLogFile(source: LogSource, entries: unknown[]) {
  * - Files: browserConsole.log, networkRequests.log, sessionReplay.log
  * - Auto-trimmed when exceeding 1MB (keeps newest entries)
  */
-function vitePluginManusDebugCollector(): Plugin {
+function vitePluginManusDebugCollector(isDev: boolean): Plugin {
   return {
     name: "manus-debug-collector",
 
+    // ✅ 本番に絶対入らないように isDev で制御（NODE_ENV依存をやめる）
     transformIndexHtml(html) {
-      if (process.env.NODE_ENV === "production") {
-        return html;
-      }
+      if (!isDev) return html;
       return {
         html,
         tags: [
           {
             tag: "script",
             attrs: {
+              // devサーバー上の絶対パスでOK（本番には入らない）
               src: "/__manus__/debug-collector.js",
               defer: true,
             },
@@ -98,23 +91,15 @@ function vitePluginManusDebugCollector(): Plugin {
     },
 
     configureServer(server: ViteDevServer) {
-      // POST /__manus__/logs: Browser sends logs (written directly to files)
+      if (!isDev) return;
+
       server.middlewares.use("/__manus__/logs", (req, res, next) => {
-        if (req.method !== "POST") {
-          return next();
-        }
+        if (req.method !== "POST") return next();
 
         const handlePayload = (payload: any) => {
-          // Write logs directly to files
-          if (payload.consoleLogs?.length > 0) {
-            writeToLogFile("browserConsole", payload.consoleLogs);
-          }
-          if (payload.networkRequests?.length > 0) {
-            writeToLogFile("networkRequests", payload.networkRequests);
-          }
-          if (payload.sessionEvents?.length > 0) {
-            writeToLogFile("sessionReplay", payload.sessionEvents);
-          }
+          if (payload.consoleLogs?.length > 0) writeToLogFile("browserConsole", payload.consoleLogs);
+          if (payload.networkRequests?.length > 0) writeToLogFile("networkRequests", payload.networkRequests);
+          if (payload.sessionEvents?.length > 0) writeToLogFile("sessionReplay", payload.sessionEvents);
 
           res.writeHead(200, { "Content-Type": "application/json" });
           res.end(JSON.stringify({ success: true }));
@@ -132,10 +117,7 @@ function vitePluginManusDebugCollector(): Plugin {
         }
 
         let body = "";
-        req.on("data", (chunk) => {
-          body += chunk.toString();
-        });
-
+        req.on("data", (chunk) => (body += chunk.toString()));
         req.on("end", () => {
           try {
             const payload = JSON.parse(body);
@@ -150,40 +132,52 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+export default defineConfig(({ command, mode }) => {
+  const isDev = command === "serve";
+  // ✅ GitHub Pages用: repo名 /portfolio-site/（必要なら env で上書き可）
+  const base = process.env.VITE_BASE ?? "/portfolio-site/";
 
-export default defineConfig({
-  base: "/portfolio-site/",
-  plugins,
-  resolve: {
-    alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+  const plugins = [
+    react(),
+    tailwindcss(),
+    jsxLocPlugin(),
+    vitePluginManusRuntime(),
+    vitePluginManusDebugCollector(isDev),
+  ];
+
+  return {
+    base,
+    plugins,
+    resolve: {
+      alias: {
+        "@": path.resolve(PROJECT_ROOT, "client", "src"),
+        "@shared": path.resolve(PROJECT_ROOT, "shared"),
+        "@assets": path.resolve(PROJECT_ROOT, "attached_assets"),
+      },
     },
-  },
-  envDir: path.resolve(import.meta.dirname),
-  root: path.resolve(import.meta.dirname, "client"),
-  build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
-    emptyOutDir: true,
-  },
-  server: {
-    port: 3000,
-    strictPort: false, // Will find next available port if 3000 is busy
-    host: true,
-    allowedHosts: [
-      ".manuspre.computer",
-      ".manus.computer",
-      ".manus-asia.computer",
-      ".manuscomputer.ai",
-      ".manusvm.computer",
-      "localhost",
-      "127.0.0.1",
-    ],
-    fs: {
-      strict: true,
-      deny: ["**/.*"],
+    envDir: path.resolve(PROJECT_ROOT),
+    root: path.resolve(PROJECT_ROOT, "client"),
+    build: {
+      outDir: path.resolve(PROJECT_ROOT, "dist"),
+      emptyOutDir: true,
     },
-  },
+    server: {
+      port: 3000,
+      strictPort: false,
+      host: true,
+      allowedHosts: [
+        ".manuspre.computer",
+        ".manus.computer",
+        ".manus-asia.computer",
+        ".manuscomputer.ai",
+        ".manusvm.computer",
+        "localhost",
+        "127.0.0.1",
+      ],
+      fs: {
+        strict: true,
+        deny: ["**/.*"],
+      },
+    },
+  };
 });
