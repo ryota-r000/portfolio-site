@@ -118,25 +118,25 @@ export default function ProjectDetail(props: any) {
           title: "① 未ログイン時：購入制御（権限分離）",
           description:
             "未ログイン状態では購入手続きに進めないよう制御し、意図しない操作や不正アクセスを防止。",
-          image: "/images/projects/ken-cart-guest.png",
+          image: "images/projects/ken-cart-guest.png",
         },
         {
           title: "② ログイン後：セッション情報の表示",
           description:
             "ログイン後はヘッダーにユーザー名・保有ポイントを表示。セッション管理により状態を一元化。",
-          image: "/images/projects/ken-top-loggedin.png",
+          image: "images/projects/ken-top-loggedin.png",
         },
         {
           title: "③ ログイン後：ポイント適用・金額再計算",
           description:
             "保有ポイントと使用ポイントを反映し、合計金額を再計算。入力バリデーションと整合性を意識。",
-          image: "/images/projects/ken-cart-loggedin.png",
+          image: "images/projects/ken-cart-loggedin.png",
         },
         {
           title: "④ ログイン画面（入口）",
           description:
             "入力フォーム単位でバリデーションを実装。エラー時の案内や再入力のしやすさにも配慮。",
-          image: "/images/projects/ken-login.png",
+          image: "images/projects/ken-login.png",
         },
       ],
       techStack: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Git"],
@@ -291,7 +291,7 @@ export default function ProjectDetail(props: any) {
                   </div>
                   <div className="flex items-center justify-center">
                     <img
-                      src={screenshot.image}
+                      src={`${import.meta.env.BASE_URL}${screenshot.image}`}
                       alt={screenshot.title}
                       className="w-full h-auto rounded-lg shadow-md border border-border object-cover"
                     />
