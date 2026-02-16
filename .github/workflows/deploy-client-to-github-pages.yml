@@ -22,19 +22,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node (with Corepack)
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      # pnpm を使えるようにする（ここが今回のポイント）
+      - name: Enable pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.4 --activate
+          pnpm -v
 
-      # 依存関係はルートで入れる（pnpm-lock.yamlがルートにあるため）
+      # 依存関係はルートで入れる（pnpm-lock.yamlがルートにある）
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
