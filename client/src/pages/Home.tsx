@@ -245,9 +245,9 @@ function ProjectCard({
           className="bg-secondary rounded-lg overflow-hidden mb-4 aspect-video"
           whileHover={{ scale: 1.02 }}
         >
-          {image.startsWith("/") ? (
+          {image.startsWith("images/") || image.startsWith("/") ? (
             <img
-              src={image}
+              src={`${import.meta.env.BASE_URL}${image.replace(/^\//, "")}`}
               alt={title}
               className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-300"
             />
