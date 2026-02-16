@@ -1,5 +1,13 @@
 import { createRoot } from "react-dom/client";
+import { Router as WouterRouter } from "wouter";
 import App from "./App";
 import "./index.css";
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Vite の base（/portfolio-site/）をそのまま使う
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+createRoot(document.getElementById("root")!).render(
+  <WouterRouter base={base}>
+    <App />
+  </WouterRouter>
+);
