@@ -1,4 +1,4 @@
-name: Deploy client to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -17,43 +17,47 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node (with Corepack)
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # pnpm を使えるようにする（ここが今回のポイント）
       - name: Enable pnpm via Corepack
         run: |
           corepack enable
           corepack prepare pnpm@9.15.4 --activate
           pnpm -v
 
-      # 依存関係はルートで入れる（pnpm-lock.yamlがルートにある）
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      # client をビルド
       - name: Build
-        run: pnpm -C client build
+        run: pnpm build
 
-      # SPA（React Router）なら 404 対策
-      - name: SPA fallback
-        run: cp client/dist/index.html client/dist/404.html
+      - name: Show dist (debug)
+        run: |
+          echo "== root =="
+          ls -la
+          echo "== dist =="
+          ls -la dist || true
+          echo "== client/dist =="
+          ls -la client/dist || true
 
-      - name: Upload artifact
+      # ↓ ここは dist の場所に合わせてどちらかにする
+      - name: Upload artifact (root dist)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: client/dist
+          path: dist
+      # もし dist が client/dist に出るなら上を消して下にする
+      # - name: Upload artifact (client dist)
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: client/dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
-        uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v4
