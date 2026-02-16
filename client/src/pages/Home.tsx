@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
 
@@ -245,9 +245,17 @@ function ProjectCard({
           className="bg-secondary rounded-lg overflow-hidden mb-4 aspect-video"
           whileHover={{ scale: 1.02 }}
         >
-          <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:from-primary/20 group-hover:to-primary/10 transition-colors duration-300">
-            <span className="text-muted-foreground text-sm">{image}</span>
-          </div>
+          {image.startsWith("/") ? (
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-300"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:from-primary/20 group-hover:to-primary/10 transition-colors duration-300">
+              <span className="text-muted-foreground text-sm">{image}</span>
+            </div>
+          )}
         </motion.div>
         <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
           {title}
@@ -282,7 +290,7 @@ function WorksSection() {
       description:
         "家具メーカーの自社ECサイトを想定したWebショッピングシステム。チームリーダーとして進行管理・ルール整備を行い、認証・ログイン機能とセッション管理基盤を実装。",
       tags: ["Java", "Spring Boot", "MySQL", "Thymeleaf"],
-      image: "Project 1",
+      image: "/images/projects/ken-top-loggedin.png",
       link: "/project/ken-interior-shop",
     },
   ];
@@ -325,87 +333,7 @@ function WorksSection() {
 
 
 
-// Contact Section
-function ContactSection() {
-  return (
-    <motion.section
-      id="contact"
-      className="py-20 md:py-32 px-4 md:px-8 bg-white"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, margin: "-100px" }}
-    >
-      <div className="max-w-3xl mx-auto text-center">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold mb-8"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          Contact
-        </motion.h2>
 
-        <motion.p
-          className="text-lg text-muted-foreground mb-12 leading-relaxed"
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          ご質問やご相談があれば、お気軽にお問い合わせください。
-          転職エージェント経由でのお問い合わせにも対応しています。
-        </motion.p>
-
-        <motion.div
-          className="flex gap-4 justify-center flex-wrap"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <motion.div variants={itemVariants}>
-            <Button
-              asChild
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-base"
-            >
-              <a href="mailto:contact@example.com" className="flex items-center gap-2">
-                <Mail className="w-5 h-5" />
-                メールで連絡
-              </a>
-            </Button>
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <Button
-              variant="outline"
-              asChild
-              className="px-8 py-6 text-base border-foreground text-foreground hover:bg-secondary"
-            >
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Github className="w-5 h-5" />
-                GitHub
-              </a>
-            </Button>
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <Button
-              variant="outline"
-              asChild
-              className="px-8 py-6 text-base border-foreground text-foreground hover:bg-secondary"
-            >
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Linkedin className="w-5 h-5" />
-                LinkedIn
-              </a>
-            </Button>
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
 
 // Navigation Component
 function Navigation() {
@@ -418,9 +346,6 @@ function Navigation() {
         <div className="flex gap-8 items-center">
           <a href="#works" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Works
-          </a>
-          <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-            Contact
           </a>
         </div>
       </div>
@@ -447,7 +372,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <WorksSection />
-      <ContactSection />
+
       <Footer />
     </div>
   );
