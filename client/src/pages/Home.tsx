@@ -48,10 +48,10 @@ function HeroSection() {
           animate="visible"
         >
           <h1 className="text-6xl md:text-7xl font-bold text-foreground mb-4">
-            Web Engineer
+            Portfolio
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground font-light">
-            UI/UX志向のフルスタックエンジニア
+            佐藤　怜太
           </p>
         </motion.div>
 
@@ -62,8 +62,7 @@ function HeroSection() {
           animate="visible"
           transition={{ delay: 0.2 }}
         >
-          技術力とデザイン思考を融合させ、ユーザーにとって本当に価値のあるプロダクトを作ります。
-          エンジニア×デザイナーの視点で、思考プロセスから実装まで、丁寧に仕事をします。
+          ユーザー視点を大切にするエンジニア
         </motion.p>
 
         <motion.div
@@ -122,12 +121,6 @@ function AboutSection() {
             viewport={{ once: true }}
           >
             <div className="bg-secondary rounded-lg aspect-square mb-6"></div>
-            <h3 className="text-lg font-semibold mb-2">Web Developer</h3>
-            <p className="text-sm text-muted-foreground">
-              Java + Spring Boot でのバックエンド開発から、
-              HTML/CSS/JavaScript でのフロントエンド開発まで、
-              フルスタック開発が可能です。
-            </p>
           </motion.div>
 
           <motion.div
@@ -140,45 +133,60 @@ function AboutSection() {
           >
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold mb-3">スキル</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      <strong>バックエンド:</strong> Java, Spring Boot, MySQL
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      <strong>フロントエンド:</strong> HTML, CSS, JavaScript,
-                      React
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      <strong>デザイン:</strong> Figma, Adobe Illustrator,
-                      Photoshop
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary mt-1">•</span>
-                    <span>
-                      <strong>その他:</strong> Git/GitHub, UI/UX設計, 講師経験
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
                 <h3 className="text-xl font-semibold mb-3">強み</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  講師経験を通じて培った「伝える力」と「教える力」が強みです。
-                  複雑な技術概念を分かりやすく説明でき、チーム内のコミュニケーションを円滑にします。
-                  また、エンジニアとしての論理性とデザイナーとしての美的感覚を両立させ、
-                  ユーザーにとって本当に価値のあるプロダクト開発を目指しています。
+                  接客経験や講師経験を通して培った「伝える力」と「相手視点で整理する力」が強みです。
+                  技術的な内容を分かりやすく言語化し、チーム内での認識のズレを減らすことを意識しています。
+                  また、実装においてはユーザー視点を持ち、UIの使いやすさにも配慮しています。
                 </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3">スキル</h3>
+                <ul className="space-y-2 text-muted-foreground">
+
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary mt-1">•</span>
+                    <span>
+                      <strong>実務経験:</strong> SQL（データ抽出・更新・集計）, Oracle, VBA（業務効率化ツール作成）
+                    </span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary mt-1">•</span>
+                    <span>
+                      <strong>Webアプリ開発（研修・個人制作）:</strong> Java, Spring Boot, MySQL, HTML, CSS, JavaScript
+                    </span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary mt-1">•</span>
+                    <span>
+                      <strong>指導経験:</strong> Java, SQL, C など（基礎レベルの指導）
+                    </span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary mt-1">•</span>
+                    <span>
+                      <strong>フロントエンド:</strong> React（学習中）
+                    </span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary mt-1">•</span>
+                    <span>
+                      <strong>デザイン制作:</strong> Adobe Illustrator / Photoshop（ロゴ・ポストカード制作経験）
+                    </span>
+                  </li>
+
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary mt-1">•</span>
+                    <span>
+                      <strong>その他:</strong> Git / GitHub
+                    </span>
+                  </li>
+
+                </ul>
               </div>
             </div>
           </motion.div>
