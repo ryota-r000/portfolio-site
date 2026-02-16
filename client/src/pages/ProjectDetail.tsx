@@ -308,10 +308,6 @@ export default function ProjectDetail(props: any) {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">※ 補足：</span>
-              画像は <code className="bg-white px-2 py-1 rounded">img/</code> 配下に配置しています。可能ならログイン画面は「エラー表示（未入力・誤入力）」の状態のスクショも用意すると、より強く伝わります。
-            </p>
           </motion.div>
         </div>
       </motion.section>
