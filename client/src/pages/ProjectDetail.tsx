@@ -225,7 +225,7 @@ export default function ProjectDetail(props: any) {
         viewport={{ once: true, margin: "-100px" }}
       >
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12">プロジェクト詳細</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-12">設計意図と実装内容</h2>
 
           <motion.div
             className="space-y-8"
@@ -261,7 +261,7 @@ export default function ProjectDetail(props: any) {
       >
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            スクリーンショット
+            実装内容と工夫点
           </h2>
           <p className="text-muted-foreground mb-12 text-lg">
             権限制御 → セッション → ロジック の順で掲載
@@ -301,14 +301,6 @@ export default function ProjectDetail(props: any) {
             ))}
           </motion.div>
 
-          <motion.div
-            className="mt-16 p-6 bg-secondary rounded-lg border border-border"
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-          </motion.div>
         </div>
       </motion.section>
 
