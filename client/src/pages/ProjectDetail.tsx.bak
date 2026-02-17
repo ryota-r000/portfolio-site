@@ -400,63 +400,9 @@ export default function ProjectDetail(props: any) {
       </motion.section>
 
       {/* Content Section - Different for Design vs Web Projects */}
-      {isCoffeeShopProject ? (
+      {isDesignProject ? (
         <>
-          {/* Coffee Shop: Brand Image */}
-          <motion.section
-            className="py-20 md:py-32 px-4 md:px-8 bg-white"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                Brand Image
-              </h2>
-              <ImageGallery images={project.images.hero} title="Brand Image" type="hero" />
-            </div>
-          </motion.section>
-
-          {/* Coffee Shop: Bean Cards - Main Focus */}
-          <motion.section
-            className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                Bean Card Design
-              </h2>
-              <ImageGallery images={project.images.beanCards} title="Bean Cards" type="print" />
-            </div>
-          </motion.section>
-
-          {/* Coffee Shop: Shop Card */}
-          <motion.section
-            className="py-20 md:py-32 px-4 md:px-8 bg-white"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                Shop Card Design
-              </h2>
-              <div className="flex justify-center">
-                <div className="max-w-sm w-full">
-                  <ImageGallery images={project.images.shopCard} title="Shop Card" type="print" />
-                </div>
-              </div>
-            </div>
-          </motion.section>
-        </>
-      ) : isDesignProject ? (
-        <>
-          {/* Fluid Art: Hero Image */}
+          {/* Design Project: Hero Image */}
           <motion.section
             className="py-20 md:py-32 px-4 md:px-8 bg-white"
             initial={{ opacity: 0 }}
@@ -536,21 +482,81 @@ export default function ProjectDetail(props: any) {
             </div>
           </motion.section>
 
-          {/* Fluid Art: Exhibition */}
-          <motion.section
-            className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                Exhibition Visual
-              </h2>
-              <ImageGallery images={project.images.exhibition} title="Exhibition Visual" type="print" />
-            </div>
-          </motion.section>
+          {!isCoffeeShopProject && (
+            <>
+              {/* Design Project: Exhibition */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    Exhibition Visual
+                  </h2>
+                  <ImageGallery images={project.images.exhibition} title="Exhibition Visual" type="print" />
+                </div>
+              </motion.section>
+            </>
+          )}
+
+          {isCoffeeShopProject && (
+            <>
+              {/* Coffee Shop: Brand Image */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-white"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    Brand Image
+                  </h2>
+                  <ImageGallery images={project.images.hero} title="Brand Image" type="hero" />
+                </div>
+              </motion.section>
+
+              {/* Coffee Shop: Bean Cards - Main Focus */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    Bean Card Design
+                  </h2>
+                  <ImageGallery images={project.images.beanCards} title="Bean Cards" type="print" />
+                </div>
+              </motion.section>
+
+              {/* Coffee Shop: Shop Card */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-white"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    Shop Card Design
+                  </h2>
+                  <div className="flex justify-center">
+                    <div className="max-w-sm w-full">
+                      <ImageGallery images={project.images.shopCard} title="Shop Card" type="print" />
+                    </div>
+                  </div>
+                </div>
+              </motion.section>
+            </>
+          )}
         </>
       ) : (
         /* Web Project: Screenshots */
