@@ -268,9 +268,14 @@ export default function ProjectDetail(props: any) {
       title: "Coffee Shop Visual Design",
       subtitle: "デザイン / 印刷物",
       description:
-        "コーヒー豆販売の出展に伴い、商品カードおよびショップカードのデザインを制作。情報整理と視認性を意識したレイアウト設計を行いました。",
+        "ロゴデザインを含むブランド全体のビジュアル設計を担当。Illustratorを使用してロゴ制作を行い、商品カードおよびショップカードのデザインを制作。各印刷物へ一貫したデザイン展開を行いました。",
       role: "豆カード制作（3種・表裏） / ショップカード制作 / 印刷用データ作成",
       details: [
+        {
+          title: "ロゴデザイン",
+          content:
+            "ブランドイメージを象徴するロゴをIllustratorで制作。印刷物展開を前提に、視認性と汎用性を意識した設計を行いました。",
+        },
         {
           title: "情報設計",
           content:
