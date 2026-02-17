@@ -229,7 +229,9 @@ function ProjectCard({
             <img
               src={`${import.meta.env.BASE_URL}${image.replace(/^\//, "")}`}
               alt={title}
-              className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-300"
+              className={`w-full h-full ${
+                title === "Fluid Art Brand Design" ? "object-contain" : "object-cover"
+              } group-hover:brightness-110 transition-all duration-300`}
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:from-primary/20 group-hover:to-primary/10 transition-colors duration-300">
@@ -286,7 +288,7 @@ function WorksSection() {
       description:
         "フルイドアート作品の制作と販売に伴うビジュアル制作を一貫して担当。ロゴ、ポストカード、名刺、展示用幕などをIllustrator・Photoshopで制作。",
       tags: ["Illustrator", "Photoshop", "Branding", "Print Design"],
-      image: "images/projects/fluid-art-placeholder.png",
+      image: "images/fluid-art/business-cards/business-card-back.png",
       link: "/project/fluid-art-brand",
     },
     {
@@ -294,7 +296,7 @@ function WorksSection() {
       description:
         "コーヒー豆販売の出展に伴い、商品カードおよびショップカードのデザインを制作。情報整理と視認性を意識したレイアウト設計を実施。",
       tags: ["Illustrator", "Print Design", "Layout Design"],
-      image: "images/projects/coffee-shop-placeholder.png",
+      image: "images/coffee-shop/bean-cards/bean-card-front-01.png",
       link: "/project/coffee-shop-visual",
     },
   ];
