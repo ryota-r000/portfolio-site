@@ -100,7 +100,13 @@ function AboutSection() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <div className="bg-secondary rounded-lg aspect-square mb-6"></div>
+            <div className="rounded-lg aspect-square mb-6 overflow-hidden">
+              <img
+                src={`${import.meta.env.BASE_URL}images/about/about-profile.jpg`}
+                alt="プロフィール"
+                className="w-full h-full object-cover brightness-90 grayscale-[15%]"
+              />
+            </div>
           </motion.div>
 
           <motion.div
