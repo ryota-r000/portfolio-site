@@ -232,6 +232,38 @@ export default function ProjectDetail(props: any) {
       },
       techStack: ["Illustrator", "Photoshop", "Branding", "Print Design"],
     },
+    "coffee-shop-visual": {
+      title: "Coffee Shop Visual Design",
+      subtitle: "デザイン / 印刷物",
+      description:
+        "コーヒー豆販売の出展に伴い、商品カードおよびショップカードのデザインを制作。情報整理と視認性を意識したレイアウト設計を行いました。",
+      role: "豆カード制作（3種・表裏） / ショップカード制作 / 印刷用データ作成",
+      details: [
+        {
+          title: "情報設計",
+          content:
+            "文字情報の優先順位を整理し、視認性と可読性を意識したレイアウト設計を行いました。",
+        },
+        {
+          title: "印刷対応",
+          content:
+            "印刷を前提に、色味や余白バランスを調整しています。",
+        },
+      ],
+      images: {
+        hero: "images/coffee-shop/hero/hero-01.jpg",
+        beanCards: [
+          "images/coffee-shop/bean-cards/bean-card-front-01.jpg",
+          "images/coffee-shop/bean-cards/bean-card-back-01.jpg",
+          "images/coffee-shop/bean-cards/bean-card-front-02.jpg",
+          "images/coffee-shop/bean-cards/bean-card-back-02.jpg",
+          "images/coffee-shop/bean-cards/bean-card-front-03.jpg",
+          "images/coffee-shop/bean-cards/bean-card-back-03.jpg",
+        ],
+        shopCard: "images/coffee-shop/shop-card/shop-card-front.jpg",
+      },
+      techStack: ["Illustrator", "Print Design", "Layout Design"],
+    },
   };
 
   const project = projects[projectId];
@@ -251,7 +283,8 @@ export default function ProjectDetail(props: any) {
     );
   }
 
-  const isDesignProject = projectId === "fluid-art-brand";
+  const isDesignProject = projectId === "fluid-art-brand" || projectId === "coffee-shop-visual";
+  const isCoffeeShopProject = projectId === "coffee-shop-visual";
 
   return (
     <div className="min-h-screen bg-white">
@@ -417,21 +450,61 @@ export default function ProjectDetail(props: any) {
             </div>
           </motion.section>
 
-          {/* Design Project: Exhibition */}
-          <motion.section
-            className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                展示用幕
-              </h2>
-              <ImageGallery images={project.images.exhibition} title="Exhibition Visual" />
-            </div>
-          </motion.section>
+          {!isCoffeeShopProject && (
+            <>
+              {/* Design Project: Exhibition */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    展示用幕
+                  </h2>
+                  <ImageGallery images={project.images.exhibition} title="Exhibition Visual" />
+                </div>
+              </motion.section>
+            </>
+          )}
+
+          {isCoffeeShopProject && (
+            <>
+              {/* Coffee Shop: Bean Cards */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    豆カード（3種・表裏）
+                  </h2>
+                  <ImageGallery images={project.images.beanCards} title="Bean Cards" />
+                </div>
+              </motion.section>
+
+              {/* Coffee Shop: Shop Card */}
+              <motion.section
+                className="py-20 md:py-32 px-4 md:px-8 bg-white"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                    ショップカード
+                  </h2>
+                  <ImageGallery images={project.images.shopCard} title="Shop Card" />
+                </div>
+              </motion.section>
+            </>
+          )}
         </>
       ) : (
         /* Web Project: Screenshots */
