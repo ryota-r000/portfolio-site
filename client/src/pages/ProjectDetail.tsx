@@ -84,40 +84,72 @@ function Footer() {
 }
 
 // Image Gallery Component for Design Projects
-function ImageGallery({ images, title }: { images: string | string[]; title: string }) {
+// Display rules:
+// - Single images (hero, logo, etc): Full width with contain to preserve aspect ratio
+// - Multiple images (artworks, cards, etc): Grid layout with contain to preserve aspect ratio
+// - Print materials (postcards, business cards, etc): Contained display with background
+function ImageGallery({ images, title, type = 'default' }: { images: string | string[]; title: string; type?: 'hero' | 'artworks' | 'print' | 'default' }) {
   const imageArray = Array.isArray(images) ? images : [images];
   
+  // Single image: Hero, Logo, Exhibition
   if (imageArray.length === 1) {
+    const isSinglePrint = type === 'print';
+    
     return (
       <motion.div
         variants={itemVariants}
-        className="w-full"
+        className={`w-full flex justify-center ${
+          isSinglePrint ? 'bg-gray-50 rounded-lg p-8' : ''
+        }`}
       >
         <img
           src={`${import.meta.env.BASE_URL}${imageArray[0]}`}
           alt={title}
-          className="w-full h-auto rounded-lg shadow-md border border-border object-cover"
+          className={`rounded-lg shadow-md border border-border object-contain ${
+            isSinglePrint
+              ? 'max-w-md max-h-96'
+              : 'w-full max-w-3xl h-auto'
+          }`}
         />
       </motion.div>
     );
   }
 
+  // Multiple images: Artworks or Print materials
+  const isPrintMaterial = type === 'print';
+  
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="grid grid-cols-2 md:grid-cols-3 gap-4"
+      className={`grid gap-6 ${
+        isPrintMaterial
+          ? 'grid-cols-1 md:grid-cols-2'
+          : 'grid-cols-2 md:grid-cols-3'
+      }`}
     >
       {imageArray.map((image, index) => (
-        <motion.img
+        <motion.div
           key={index}
-          src={`${import.meta.env.BASE_URL}${image}`}
-          alt={`${title} - ${index + 1}`}
           variants={itemVariants}
-          className="w-full h-auto rounded-lg shadow-md border border-border object-cover aspect-square"
-        />
+          className={`flex items-center justify-center rounded-lg border border-border overflow-hidden ${
+            isPrintMaterial
+              ? 'bg-gray-50 p-4 min-h-80'
+              : 'bg-white'
+          }`}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}${image}`}
+            alt={`${title} - ${index + 1}`}
+            className={`object-contain ${
+              isPrintMaterial
+                ? 'w-full h-full max-h-72'
+                : 'w-full h-auto'
+            }`}
+          />
+        </motion.div>
       ))}
     </motion.div>
   );
@@ -382,7 +414,7 @@ export default function ProjectDetail(props: any) {
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
                 ヒーロー作品
               </h2>
-              <ImageGallery images={project.images.hero} title="Hero Image" />
+              <ImageGallery images={project.images.hero} title="Hero Image" type="hero" />
             </div>
           </motion.section>
 
@@ -398,7 +430,7 @@ export default function ProjectDetail(props: any) {
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
                 作品バリエーション
               </h2>
-              <ImageGallery images={project.images.artworks} title="Artworks" />
+              <ImageGallery images={project.images.artworks} title="Artworks" type="artworks" />
             </div>
           </motion.section>
 
@@ -430,7 +462,7 @@ export default function ProjectDetail(props: any) {
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
                 ポストカード
               </h2>
-              <ImageGallery images={project.images.postcards} title="Postcards" />
+              <ImageGallery images={project.images.postcards} title="Postcards" type="print" />
             </div>
           </motion.section>
 
@@ -446,7 +478,7 @@ export default function ProjectDetail(props: any) {
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
                 名刺
               </h2>
-              <ImageGallery images={project.images.businessCards} title="Business Cards" />
+              <ImageGallery images={project.images.businessCards} title="Business Cards" type="print" />
             </div>
           </motion.section>
 
@@ -464,7 +496,7 @@ export default function ProjectDetail(props: any) {
                   <h2 className="text-4xl md:text-5xl font-bold mb-12">
                     展示用幕
                   </h2>
-                  <ImageGallery images={project.images.exhibition} title="Exhibition Visual" />
+                  <ImageGallery images={project.images.exhibition} title="Exhibition Visual" type="print" />
                 </div>
               </motion.section>
             </>
@@ -484,7 +516,7 @@ export default function ProjectDetail(props: any) {
                   <h2 className="text-4xl md:text-5xl font-bold mb-12">
                     豆カード（3種・表裏）
                   </h2>
-                  <ImageGallery images={project.images.beanCards} title="Bean Cards" />
+                  <ImageGallery images={project.images.beanCards} title="Bean Cards" type="print" />
                 </div>
               </motion.section>
 
@@ -500,7 +532,7 @@ export default function ProjectDetail(props: any) {
                   <h2 className="text-4xl md:text-5xl font-bold mb-12">
                     ショップカード
                   </h2>
-                  <ImageGallery images={project.images.shopCard} title="Shop Card" />
+                  <ImageGallery images={project.images.shopCard} title="Shop Card" type="print" />
                 </div>
               </motion.section>
             </>
