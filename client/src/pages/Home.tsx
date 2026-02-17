@@ -281,6 +281,22 @@ function WorksSection() {
       image: "images/projects/weather-app-placeholder.png",
       link: "https://ryota-r000.github.io/react-weather-app/",
     },
+    {
+      title: "Fluid Art Brand Design",
+      description:
+        "フルイドアート作品の制作と販売に伴うビジュアル制作を一貫して担当。ロゴ、ポストカード、名刺、展示用幕などをIllustrator・Photoshopで制作。",
+      tags: ["Illustrator", "Photoshop", "Branding", "Print Design"],
+      image: "images/projects/fluid-art-placeholder.png",
+      link: "/project/fluid-art-brand",
+    },
+    {
+      title: "Coffee Shop Visual Design",
+      description:
+        "コーヒー豆販売の出展に伴い、商品カードおよびショップカードのデザインを制作。情報整理と視認性を意識したレイアウト設計を実施。",
+      tags: ["Illustrator", "Print Design", "Layout Design"],
+      image: "images/projects/coffee-shop-placeholder.png",
+      link: "/project/coffee-shop-visual",
+    },
   ];
 
   return (
