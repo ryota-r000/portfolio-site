@@ -1,4 +1,4 @@
-import { Github, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
 
@@ -47,16 +47,16 @@ function Navigation() {
         </button>
         <div className="flex gap-8 items-center">
           <button
+            onClick={() => navigate("/#about")}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            About
+          </button>
+          <button
             onClick={() => navigate("/#works")}
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             Works
-          </button>
-          <button
-            onClick={() => navigate("/#contact")}
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            Contact
           </button>
         </div>
       </div>
@@ -69,7 +69,6 @@ function Footer() {
   return (
     <footer className="py-8 px-4 md:px-8 bg-secondary border-t border-border">
       <div className="max-w-5xl mx-auto text-center text-sm text-muted-foreground">
-        <p>© 2024 Web Engineer Portfolio. All rights reserved.</p>
       </div>
     </footer>
   );
@@ -193,7 +192,7 @@ export default function ProjectDetail(props: any) {
               <span className="font-semibold text-foreground">担当：</span>
               {project.role.split(" / ")[1]}
             </p>
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="flex flex-wrap gap-4">
               {project.techStack.map((tech: string) => (
                 <span
                   key={tech}
@@ -203,15 +202,6 @@ export default function ProjectDetail(props: any) {
                 </span>
               ))}
             </div>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <Github className="w-5 h-5" />
-              GitHub で見る
-            </a>
           </motion.div>
         </div>
       </motion.section>
