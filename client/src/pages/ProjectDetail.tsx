@@ -269,7 +269,7 @@ export default function ProjectDetail(props: any) {
       subtitle: "デザイン / 印刷物",
       description:
         "ロゴデザインを含むブランド全体のビジュアル設計を担当。Illustratorを使用してロゴ制作を行い、商品カードおよびショップカードのデザインを制作。各印刷物へ一貫したデザイン展開を行いました。",
-      role: "豆カード制作（3種・表裏） / ショップカード制作 / 印刷用データ作成",
+      role: "キャプションカード制作（3種・表裏） / ショップカード制作 / 印刷用データ作成",
       details: [
         {
           title: "ロゴデザイン",
@@ -350,7 +350,7 @@ export default function ProjectDetail(props: any) {
               {project.description}
             </p>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              <span className="font-semibold text-foreground">役割：</span>
+              <span className="font-semibold text-foreground">Scope：</span>
               {project.role}
             </p>
             <div className="flex flex-wrap gap-4">
