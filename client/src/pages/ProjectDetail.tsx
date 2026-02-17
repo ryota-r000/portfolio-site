@@ -39,7 +39,10 @@ function Navigation() {
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-border z-50">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate("/");
+          }}
           className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -47,13 +50,19 @@ function Navigation() {
         </button>
         <div className="flex gap-8 items-center">
           <button
-            onClick={() => navigate("/#about")}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate("/#about");
+            }}
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             About
           </button>
           <button
-            onClick={() => navigate("/#works")}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate("/#works");
+            }}
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             Works

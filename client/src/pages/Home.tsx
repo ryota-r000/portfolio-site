@@ -200,6 +200,7 @@ function ProjectCard({
   const handleClick = (e: React.MouseEvent) => {
     if (!isExternalLink) {
       e.preventDefault();
+      window.scrollTo(0, 0);
       navigate(link);
     }
   };
