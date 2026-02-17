@@ -83,6 +83,46 @@ function Footer() {
   );
 }
 
+// Image Gallery Component for Design Projects
+function ImageGallery({ images, title }: { images: string | string[]; title: string }) {
+  const imageArray = Array.isArray(images) ? images : [images];
+  
+  if (imageArray.length === 1) {
+    return (
+      <motion.div
+        variants={itemVariants}
+        className="w-full"
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}${imageArray[0]}`}
+          alt={title}
+          className="w-full h-auto rounded-lg shadow-md border border-border object-cover"
+        />
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="grid grid-cols-2 md:grid-cols-3 gap-4"
+    >
+      {imageArray.map((image, index) => (
+        <motion.img
+          key={index}
+          src={`${import.meta.env.BASE_URL}${image}`}
+          alt={`${title} - ${index + 1}`}
+          variants={itemVariants}
+          className="w-full h-auto rounded-lg shadow-md border border-border object-cover aspect-square"
+        />
+      ))}
+    </motion.div>
+  );
+}
+
 // Project Detail Page Component
 export default function ProjectDetail(props: any) {
   const projectId = props.params?.projectId || props.projectId;
@@ -149,6 +189,49 @@ export default function ProjectDetail(props: any) {
       ],
       techStack: ["Java", "Spring Boot", "Thymeleaf", "MySQL", "Git"],
     },
+    "fluid-art-brand": {
+      title: "Fluid Art Brand Design",
+      subtitle: "ブランディング / デザイン",
+      description:
+        "フルイドアート作品の制作と販売に伴うビジュアル制作を一貫して担当。ロゴ、ポストカード、名刺、展示用幕などをIllustrator・Photoshopで制作。",
+      role: "アート作品制作 / ロゴデザイン・ポストカード・名刺・展示幕制作 / 印刷用データ作成",
+      details: [
+        {
+          title: "ビジュアル戦略",
+          content:
+            "アート作品のコンセプトをロゴ・ポストカード・名刺などの販売ビジュアルに一貫性を持たせて展開。ブランドアイデンティティを統一。",
+        },
+        {
+          title: "デザイン工夫",
+          content:
+            "フルイドアートの流動的な美しさを活かしながら、商品カードや展示物では視認性と情報整理を重視。",
+        },
+        {
+          title: "印刷対応",
+          content:
+            "CMYK色空間での色調整、トンボ・塗足の設定など、印刷物としての完成度を意識した制作。",
+        },
+      ],
+      images: {
+        hero: "images/fluid-art/hero/hero-image-01.jpg",
+        artworks: [
+          "images/fluid-art/artworks/artwork-01.jpg",
+          "images/fluid-art/artworks/artwork-02.jpg",
+          "images/fluid-art/artworks/artwork-03.jpg",
+        ],
+        logo: "images/fluid-art/logo/logo-main.png",
+        postcards: [
+          "images/fluid-art/postcards/postcard-front-01.jpg",
+          "images/fluid-art/postcards/postcard-back-01.jpg",
+        ],
+        businessCards: [
+          "images/fluid-art/business-cards/business-card-front.jpg",
+          "images/fluid-art/business-cards/business-card-back.jpg",
+        ],
+        exhibition: "images/fluid-art/exhibition/exhibition-visual-01.jpg",
+      },
+      techStack: ["Illustrator", "Photoshop", "Branding", "Print Design"],
+    },
   };
 
   const project = projects[projectId];
@@ -167,6 +250,8 @@ export default function ProjectDetail(props: any) {
       </div>
     );
   }
+
+  const isDesignProject = projectId === "fluid-art-brand";
 
   return (
     <div className="min-h-screen bg-white">
@@ -196,10 +281,7 @@ export default function ProjectDetail(props: any) {
             </p>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               <span className="font-semibold text-foreground">役割：</span>
-              {project.role.split(" / ")[0]}
-              <br />
-              <span className="font-semibold text-foreground">担当：</span>
-              {project.role.split(" / ")[1]}
+              {project.role}
             </p>
             <div className="flex flex-wrap gap-4">
               {project.techStack.map((tech: string) => (
@@ -224,7 +306,9 @@ export default function ProjectDetail(props: any) {
         viewport={{ once: true, margin: "-100px" }}
       >
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12">設計意図と実装内容</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-12">
+            {isDesignProject ? "制作ポイント" : "設計意図と実装内容"}
+          </h2>
 
           <motion.div
             className="space-y-8"
@@ -250,58 +334,158 @@ export default function ProjectDetail(props: any) {
         </div>
       </motion.section>
 
-      {/* Screenshots Section */}
-      <motion.section
-        className="py-20 md:py-32 px-4 md:px-8 bg-white"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            実装内容と工夫点
-          </h2>
-          <p className="text-muted-foreground mb-12 text-lg">
-            権限制御 → セッション → ロジック の順で掲載
-          </p>
-
-          <motion.div
-            className="space-y-16"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+      {/* Content Section - Different for Design vs Web Projects */}
+      {isDesignProject ? (
+        <>
+          {/* Design Project: Hero Image */}
+          <motion.section
+            className="py-20 md:py-32 px-4 md:px-8 bg-white"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
           >
-            {project.screenshots.map((screenshot: any, index: number) => (
-              <motion.div
-                key={screenshot.title}
-                variants={itemVariants}
-                className="bg-secondary rounded-lg overflow-hidden border border-border"
-              >
-                <div className="grid md:grid-cols-2 gap-8 p-8">
-                  <div className="flex flex-col justify-center">
-                    <h3 className="text-2xl font-semibold mb-4 text-foreground">
-                      {screenshot.title}
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      {screenshot.description}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src={`${import.meta.env.BASE_URL}${screenshot.image}`}
-                      alt={screenshot.title}
-                      className="w-full h-auto rounded-lg shadow-md border border-border object-cover"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                ヒーロー作品
+              </h2>
+              <ImageGallery images={project.images.hero} title="Hero Image" />
+            </div>
+          </motion.section>
 
-        </div>
-      </motion.section>
+          {/* Design Project: Artworks */}
+          <motion.section
+            className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                作品バリエーション
+              </h2>
+              <ImageGallery images={project.images.artworks} title="Artworks" />
+            </div>
+          </motion.section>
+
+          {/* Design Project: Logo */}
+          <motion.section
+            className="py-20 md:py-32 px-4 md:px-8 bg-white"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                ロゴ
+              </h2>
+              <ImageGallery images={project.images.logo} title="Logo" />
+            </div>
+          </motion.section>
+
+          {/* Design Project: Postcards */}
+          <motion.section
+            className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                ポストカード
+              </h2>
+              <ImageGallery images={project.images.postcards} title="Postcards" />
+            </div>
+          </motion.section>
+
+          {/* Design Project: Business Cards */}
+          <motion.section
+            className="py-20 md:py-32 px-4 md:px-8 bg-white"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                名刺
+              </h2>
+              <ImageGallery images={project.images.businessCards} title="Business Cards" />
+            </div>
+          </motion.section>
+
+          {/* Design Project: Exhibition */}
+          <motion.section
+            className="py-20 md:py-32 px-4 md:px-8 bg-secondary"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-12">
+                展示用幕
+              </h2>
+              <ImageGallery images={project.images.exhibition} title="Exhibition Visual" />
+            </div>
+          </motion.section>
+        </>
+      ) : (
+        /* Web Project: Screenshots */
+        <motion.section
+          className="py-20 md:py-32 px-4 md:px-8 bg-white"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              実装内容と工夫点
+            </h2>
+            <p className="text-muted-foreground mb-12 text-lg">
+              権限制御 → セッション → ロジック の順で掲載
+            </p>
+
+            <motion.div
+              className="space-y-16"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {project.screenshots.map((screenshot: any) => (
+                <motion.div
+                  key={screenshot.title}
+                  variants={itemVariants}
+                  className="bg-secondary rounded-lg overflow-hidden border border-border"
+                >
+                  <div className="grid md:grid-cols-2 gap-8 p-8">
+                    <div className="flex flex-col justify-center">
+                      <h3 className="text-2xl font-semibold mb-4 text-foreground">
+                        {screenshot.title}
+                      </h3>
+                      <p className="text-lg text-muted-foreground leading-relaxed">
+                        {screenshot.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <img
+                        src={`${import.meta.env.BASE_URL}${screenshot.image}`}
+                        alt={screenshot.title}
+                        className="w-full h-auto rounded-lg shadow-md border border-border object-cover"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+      )}
 
       <Footer />
     </div>
