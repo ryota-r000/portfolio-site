@@ -372,7 +372,7 @@ export default function ProjectDetail(props: any) {
       >
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-12">
-            {isDesignProject ? "制作ポイント" : "設計意図と実装内容"}
+            {isDesignProject ? "Design Approach" : "設計意図と実装内容"}
           </h2>
 
           <motion.div
@@ -412,7 +412,7 @@ export default function ProjectDetail(props: any) {
           >
             <div className="max-w-5xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                ヒーロー作品
+                Key Visual
               </h2>
               <ImageGallery images={project.images.hero} title="Hero Image" type="hero" />
             </div>
@@ -428,7 +428,7 @@ export default function ProjectDetail(props: any) {
           >
             <div className="max-w-5xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                作品バリエーション
+                Art Collection
               </h2>
               <ImageGallery images={project.images.artworks} title="Artworks" type="artworks" />
             </div>
@@ -444,7 +444,7 @@ export default function ProjectDetail(props: any) {
           >
             <div className="max-w-5xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                ロゴ
+                Visual Identity
               </h2>
               <ImageGallery images={project.images.logo} title="Logo" />
             </div>
@@ -460,7 +460,7 @@ export default function ProjectDetail(props: any) {
           >
             <div className="max-w-5xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                ポストカード
+                Postcard Design
               </h2>
               <ImageGallery images={project.images.postcards} title="Postcards" type="print" />
             </div>
@@ -476,7 +476,7 @@ export default function ProjectDetail(props: any) {
           >
             <div className="max-w-5xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                名刺
+                Business Card Design
               </h2>
               <ImageGallery images={project.images.businessCards} title="Business Cards" type="print" />
             </div>
@@ -494,7 +494,7 @@ export default function ProjectDetail(props: any) {
               >
                 <div className="max-w-5xl mx-auto">
                   <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                    展示用幕
+                    Exhibition Visual
                   </h2>
                   <ImageGallery images={project.images.exhibition} title="Exhibition Visual" type="print" />
                 </div>
@@ -514,7 +514,7 @@ export default function ProjectDetail(props: any) {
               >
                 <div className="max-w-5xl mx-auto">
                   <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                    豆カード（3種・表裏）
+                    Bean Card Design
                   </h2>
                   <ImageGallery images={project.images.beanCards} title="Bean Cards" type="print" />
                 </div>
@@ -530,7 +530,7 @@ export default function ProjectDetail(props: any) {
               >
                 <div className="max-w-5xl mx-auto">
                   <h2 className="text-4xl md:text-5xl font-bold mb-12">
-                    ショップカード
+                    Shop Card Design
                   </h2>
                   <ImageGallery images={project.images.shopCard} title="Shop Card" type="print" />
                 </div>
