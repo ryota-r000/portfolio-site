@@ -57,36 +57,14 @@ function HeroSection() {
         </motion.div>
 
         <motion.p
-          className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           variants={itemVariants}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.2 }}
         >
-          ユーザー視点を大切にするエンジニア
+          伝える力を活かし、ユーザー視点で開発するエンジニア
         </motion.p>
-
-        <motion.div
-          className="flex gap-4 justify-center flex-wrap"
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.4 }}
-        >
-          <Button
-            asChild
-            className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-base"
-          >
-            <a href="#works">作品を見る</a>
-          </Button>
-          <Button
-            variant="outline"
-            asChild
-            className="px-8 py-6 text-base border-foreground text-foreground hover:bg-secondary"
-          >
-            <a href="#contact">お問い合わせ</a>
-          </Button>
-        </motion.div>
       </div>
     </motion.section>
   );
@@ -96,6 +74,7 @@ function HeroSection() {
 function AboutSection() {
   return (
     <motion.section
+      id="about"
       className="py-20 md:py-32 px-4 md:px-8 bg-white"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -344,6 +323,9 @@ function Navigation() {
           Portfolio
         </a>
         <div className="flex gap-8 items-center">
+          <a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            About
+          </a>
           <a href="#works" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Works
           </a>
@@ -358,7 +340,6 @@ function Footer() {
   return (
     <footer className="py-8 px-4 md:px-8 bg-secondary border-t border-border">
       <div className="max-w-5xl mx-auto text-center text-sm text-muted-foreground">
-        <p>© 2024 Web Engineer Portfolio. All rights reserved.</p>
       </div>
     </footer>
   );
