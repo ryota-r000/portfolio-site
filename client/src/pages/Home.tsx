@@ -273,6 +273,14 @@ function WorksSection() {
       image: "images/projects/ken-top-loggedin.png",
       link: "/project/ken-interior-shop",
     },
+    {
+      title: "React Weather App",
+      description:
+        "天気情報を検索して表示するシンプルなWebアプリ。外部APIを利用し、リアルタイムの天気データを取得・表示。レスポンシブデザインで様々なデバイスに対応。",
+      tags: ["React", "Vite", "JavaScript", "CSS"],
+      image: "images/projects/weather-app-placeholder.png",
+      link: "https://ryota-r000.github.io/react-weather-app/",
+    },
   ];
 
   return (
